@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,16 +25,31 @@ public class MainActivity extends AppCompatActivity {
         calcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                verificaCamposVazios();
                 calcularResultado();
             }
         });
 
-        sair.setOnClickListener(new View.OnClickListener() {
+        sair.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View view) {
+            public boolean onLongClick(View view) {
+                Toast.makeText(getApplicationContext(), "Segure esse botao para sair do aplicativo", Toast.LENGTH_SHORT).show();
                 finish();
+                return true;
             }
         });
+    }
+
+    public void verificaCamposVazios() {
+        if (valorEtanol.getText().toString().isEmpty()) {
+            valorEtanol.setError("Esse campo e obrigatorio");
+        } else if (valorGasolina.getText().toString().isEmpty()) {
+            valorGasolina.setError("Esse campo e obrigatorio");
+        } else if (consumoEtanol.getText().toString().isEmpty()) {
+            consumoEtanol.setError("Esse campo e obrigatorio");
+        } else if (consumoGasolina.getText().toString().isEmpty()) {
+            consumoGasolina.setError("Esse campo e obrigatorio");
+        }
     }
 
     private void calcularResultado() {
